@@ -9,12 +9,13 @@ import (
 )
 
 type Converter struct {
-	Pdf   *gopdf.GoPdf
-	Text  string
-	Fonts []*FontMap
+	Pdf    *gopdf.GoPdf
+	Text   string
+	Fonts  []*FontMap
+	ConvPt float64
 }
 
-var ConvPtMm float64 = 2.834645669
+//var p.ConvPt float64 = 2.834645669
 
 //Read UTF-8 encoding file
 func (p *Converter) ReadFile(fileName string) error {
@@ -23,7 +24,7 @@ func (p *Converter) ReadFile(fileName string) error {
 		return err
 	}
 	p.Text = strings.Replace(string(buf), "\r", "", -1)
-	fmt.Println("text:"+p.Text)
+	fmt.Println("text:" + p.Text)
 	var UTF8_BOM = []byte{239, 187, 191}
 	if p.Text[0:3] == string(UTF8_BOM) {
 		p.Text = p.Text[3:]
@@ -72,25 +73,40 @@ func (p *Converter) Page(line string, eles []string) {
 	p.Pdf = new(gopdf.GoPdf)
 	switch eles[0] {
 	case "P":
-		CheckLength(line, eles, 3)
-		switch eles[1] {
+		CheckLength(line, eles, 4)
+		switch eles[2] {
 		case "A4":
-			if eles[2] == "P" {
+			if eles[3] == "P" {
 				p.Start(595.28, 841.89)
-			} else if eles[2] == "L" {
+			} else if eles[3] == "L" {
 				p.Start(841.89, 595.28)
 			} else {
-				panic("Page Orientationは PかLです")
+				panic("Page Orientation accept P or L")
 			}
+			p.SetConv(eles[1])
 		default:
-			panic("このサイズはサポートされていません:" + eles[1])
+			panic("This size not supported yet:" + eles[2])
 		}
 	case "P1":
-		CheckLength(line, eles, 3)
-		p.Start(ParseFloatPanic(eles[1])*ConvPtMm, ParseFloatPanic(eles[2])*ConvPtMm)
+		CheckLength(line, eles, 4)
+		p.Start(ParseFloatPanic(eles[2])*p.ConvPt, ParseFloatPanic(eles[3])*p.ConvPt)
+		p.SetConv(eles[1])
 	}
 	p.AddFont()
 	p.Pdf.AddPage()
+}
+func (p *Converter) SetConv(ut string) {
+	switch ut {
+	case "mm":
+		p.ConvPt = 2.834645669
+	case "pt":
+		p.ConvPt = 1
+	case "in":
+		
+		p.ConvPt = 72
+	default:
+		panic("This unit is not specified :" + ut)
+	}
 }
 func (p *Converter) NewPage(line string, eles []string) {
 	p.Pdf.AddPage()
@@ -147,7 +163,7 @@ func (p *Converter) Line(line string, eles []string) {
 }
 func CheckLength(line string, eles []string, no int) {
 	if len(eles) < no {
-		panic("項目が不足です。:" + line)
+		panic("Column short:" + line)
 	}
 }
 func (p *Converter) Cell(line string, eles []string) {
@@ -170,9 +186,9 @@ func (p *Converter) Cell(line string, eles []string) {
 		if err != nil {
 			panic(err)
 		}
-		x := ParseFloatPanic(eles[1]) * ConvPtMm
-		y := ParseFloatPanic(eles[2]) * ConvPtMm
-		w := ParseFloatPanic(eles[3]) * ConvPtMm
+		x := ParseFloatPanic(eles[1]) * p.ConvPt
+		y := ParseFloatPanic(eles[2]) * p.ConvPt
+		w := ParseFloatPanic(eles[3]) * p.ConvPt
 		finalx := x + w - tw
 		p.Pdf.SetX(finalx)
 		p.Pdf.SetY(y)
@@ -184,20 +200,20 @@ func (p *Converter) Move(line string, eles []string) {
 	p.MoveSub(eles[1], eles[2])
 }
 func (p *Converter) MoveSub(sx string, sy string) {
-	p.Pdf.SetX(ParseFloatPanic(sx) * ConvPtMm)
-	p.Pdf.SetY(ParseFloatPanic(sy) * ConvPtMm)
+	p.Pdf.SetX(ParseFloatPanic(sx) * p.ConvPt)
+	p.Pdf.SetY(ParseFloatPanic(sy) * p.ConvPt)
 }
 func AtoiPanic(s string) int {
 	i, err := strconv.Atoi(s)
 	if err != nil {
-		panic(s + "は整数ではありません")
+		panic(s + " not Integer")
 	}
 	return i
 }
 func ParseFloatPanic(s string) float64 {
 	f, err := strconv.ParseFloat(s, 64)
 	if err != nil {
-		panic(s + "は数値ではありません")
+		panic(s + " not Numeric")
 	}
 	return f
 }

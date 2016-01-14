@@ -8,7 +8,7 @@ func TestConverter(t *testing.T) {
 	conv:=new(Converter)
 	font1:=FontMap{
 		FontName:"IPAexゴシック",
-		FileName:"ipaexg.ttf",
+		FileName:"example//ttf//ipaexg.ttf",
 	}
 	conv.Fonts=[]*FontMap{&font1}
 	conv.ReadFile("savetext.txt")
