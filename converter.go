@@ -39,7 +39,7 @@ func (p *Converter) Execute() {
 		eles := strings.Split(line, "\t")
 		//fmt.Printf("eles[0]:%v:len %v\n",eles[0],len(eles[0]))
 		switch eles[0] {
-		case "P":
+		case "P", "P1":
 			p.Page(line, eles)
 		case "NP":
 			p.NewPage(line, eles)
@@ -53,8 +53,8 @@ func (p *Converter) Execute() {
 			p.Line(line, eles)
 		case "R":
 			p.Rect(line, eles)
-		case "FI":
-			p.Fill(line, eles)
+		case "I":
+			p.Image(line, eles)
 		default:
 			fmt.Println("default:" + line + ":")
 		}
@@ -89,8 +89,9 @@ func (p *Converter) Page(line string, eles []string) {
 		}
 	case "P1":
 		CheckLength(line, eles, 4)
-		p.Start(ParseFloatPanic(eles[2])*p.ConvPt, ParseFloatPanic(eles[3])*p.ConvPt)
 		p.SetConv(eles[1])
+		p.Start(ParseFloatPanic(eles[2])*p.ConvPt,
+			ParseFloatPanic(eles[3])*p.ConvPt)
 	}
 	p.AddFont()
 	p.Pdf.AddPage()
@@ -102,7 +103,7 @@ func (p *Converter) SetConv(ut string) {
 	case "pt":
 		p.ConvPt = 1
 	case "in":
-		
+
 		p.ConvPt = 72
 	default:
 		panic("This unit is not specified :" + ut)
@@ -112,7 +113,8 @@ func (p *Converter) NewPage(line string, eles []string) {
 	p.Pdf.AddPage()
 }
 func (p *Converter) Start(w float64, h float64) {
-	p.Pdf.Start(gopdf.Config{Unit: "pt", PageSize: gopdf.Rect{W: w, H: h}}) //595.28, 841.89 = A4
+	p.Pdf.Start(gopdf.Config{Unit: "pt",
+		PageSize: gopdf.Rect{W: w, H: h}}) //595.28, 841.89 = A4
 }
 func (p *Converter) Font(line string, eles []string) {
 	CheckLength(line, eles, 4)
@@ -123,32 +125,53 @@ func (p *Converter) Font(line string, eles []string) {
 }
 func (p *Converter) Rect(line string, eles []string) {
 	CheckLength(line, eles, 5)
-	p.Pdf.Line(ParseFloatPanic(eles[1]), ParseFloatPanic(eles[2]),
-		ParseFloatPanic(eles[3]), ParseFloatPanic(eles[2]))
-	p.Pdf.Line(ParseFloatPanic(eles[1]), ParseFloatPanic(eles[2]),
-		ParseFloatPanic(eles[1]), ParseFloatPanic(eles[4]))
-	p.Pdf.Line(ParseFloatPanic(eles[1]), ParseFloatPanic(eles[4]),
-		ParseFloatPanic(eles[3]), ParseFloatPanic(eles[4]))
-	p.Pdf.Line(ParseFloatPanic(eles[3]), ParseFloatPanic(eles[2]),
-		ParseFloatPanic(eles[3]), ParseFloatPanic(eles[4]))
+	p.Pdf.Line(ParseFloatPanic(eles[1])*p.ConvPt,
+		ParseFloatPanic(eles[2])*p.ConvPt,
+		ParseFloatPanic(eles[3])*p.ConvPt,
+		ParseFloatPanic(eles[2])*p.ConvPt)
+	p.Pdf.Line(ParseFloatPanic(eles[1])*p.ConvPt,
+		ParseFloatPanic(eles[2])*p.ConvPt,
+		ParseFloatPanic(eles[1])*p.ConvPt,
+		ParseFloatPanic(eles[4])*p.ConvPt)
+	p.Pdf.Line(ParseFloatPanic(eles[1])*p.ConvPt,
+		ParseFloatPanic(eles[4])*p.ConvPt,
+		ParseFloatPanic(eles[3])*p.ConvPt,
+		ParseFloatPanic(eles[4])*p.ConvPt)
+	p.Pdf.Line(ParseFloatPanic(eles[3])*p.ConvPt,
+		ParseFloatPanic(eles[2])*p.ConvPt,
+		ParseFloatPanic(eles[3])*p.ConvPt,
+		ParseFloatPanic(eles[4])*p.ConvPt)
 }
-func (p *Converter) Fill(line string, eles []string) {
-
+func (p *Converter) Image(line string, eles []string) {
+	CheckLength(line, eles, 6)
+	r := new(gopdf.Rect)
+	r.W = ParseFloatPanic(eles[4])*p.ConvPt -
+		ParseFloatPanic(eles[2])*p.ConvPt
+	r.H = ParseFloatPanic(eles[5])*p.ConvPt -
+		ParseFloatPanic(eles[3])*p.ConvPt
+	p.Pdf.Image(eles[1], ParseFloatPanic(eles[2])*p.ConvPt,
+		ParseFloatPanic(eles[3])*p.ConvPt, r)
 }
 func (p *Converter) Line(line string, eles []string) {
 	switch eles[0] {
 	case "L":
 		CheckLength(line, eles, 5)
-		p.Pdf.Line(ParseFloatPanic(eles[1]), ParseFloatPanic(eles[2]),
-			ParseFloatPanic(eles[3]), ParseFloatPanic(eles[4]))
+		p.Pdf.Line(ParseFloatPanic(eles[1])*p.ConvPt,
+			ParseFloatPanic(eles[2])*p.ConvPt,
+			ParseFloatPanic(eles[3])*p.ConvPt,
+			ParseFloatPanic(eles[4])*p.ConvPt)
 	case "LH":
 		CheckLength(line, eles, 4)
-		p.Pdf.Line(ParseFloatPanic(eles[1]), ParseFloatPanic(eles[2]),
-			ParseFloatPanic(eles[3]), ParseFloatPanic(eles[2]))
+		p.Pdf.Line(ParseFloatPanic(eles[1])*p.ConvPt,
+			ParseFloatPanic(eles[2])*p.ConvPt,
+			ParseFloatPanic(eles[3])*p.ConvPt,
+			ParseFloatPanic(eles[2])*p.ConvPt)
 	case "LV":
 		CheckLength(line, eles, 4)
-		p.Pdf.Line(ParseFloatPanic(eles[1]), ParseFloatPanic(eles[2]),
-			ParseFloatPanic(eles[1]), ParseFloatPanic(eles[3]))
+		p.Pdf.Line(ParseFloatPanic(eles[1])*p.ConvPt,
+			ParseFloatPanic(eles[2])*p.ConvPt,
+			ParseFloatPanic(eles[1])*p.ConvPt,
+			ParseFloatPanic(eles[3])*p.ConvPt)
 	case "LT":
 		//lineType "dashed" ,"dotted"
 		CheckLength(line, eles, 3)

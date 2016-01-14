@@ -26,7 +26,7 @@ func Simple1Report() {
 	r.Records = ReadText()
 	fmt.Printf("Records %v \n", r.Records)
 	r.SetPage("A4", "mm","L")
-	r.FooterY = 190
+	r.SetFooterY(190)
 	r.Execute("simple1.pdf")
 	r.SaveText("simple1.txt")
 }

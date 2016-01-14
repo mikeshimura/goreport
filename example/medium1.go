@@ -28,6 +28,8 @@ func Medium1Report() {
 	r.RegisterBand(gr.Band(*h), gr.PageHeader)
 	s := new(M1Summary)
 	r.RegisterBand(gr.Band(*s), gr.Summary)
+	f := new(M1Footer)
+	r.RegisterBand(gr.Band(*f), gr.PageFooter)
 	s1 := new(M1G1Summary)
 	r.RegisterGroupBand(gr.Band(*s1), gr.GroupSummary, 1)
 	s2 := new(M1G2Summary)
@@ -35,8 +37,9 @@ func Medium1Report() {
 	r.Records = ReadText()
 	fmt.Printf("Records %v \n", r.Records)
 	r.SetPage("A4", "mm", "L")
-	r.FooterY = 190
+	r.SetFooterY(190)
 	r.Execute("medium1.pdf")
+	r.SaveText("medium1.txt")
 }
 
 type M1Detail struct {
@@ -102,12 +105,15 @@ func (h M1Header) GetHeight(report gr.GoReport) float64 {
 }
 func (h M1Header) Execute(report gr.GoReport) {
 	report.Font("IPAexゴシック", 14, "")
+	report.Image("../grey25.jpg",48,13,81,21)
+	report.LineType("straight", 1)
+	report.Rect(48,13,81,21)
 	report.Cell(50, 15, "Sales Report")
 	report.Font("IPAexゴシック", 12, "")
-	report.Cell(225, 20, "page")
-	report.CellRight(230, 20, 15, strconv.Itoa(report.Page))
-	report.Cell(250, 20, "of")
-	report.CellRight(255, 20, 15, "{#TotalPage#}")
+	report.Cell(245, 20, "page")
+	report.CellRight(253, 20, 10, strconv.Itoa(report.Page))
+	report.Cell(264, 20, "of")
+	report.CellRight(268, 20, 10, "{#TotalPage#}")
 	y := 23.0
 	report.Cell(15, y, "D No")
 	report.Cell(30, y, "Dept")
@@ -117,6 +123,9 @@ func (h M1Header) Execute(report gr.GoReport) {
 	report.CellRight(135, y, 25, "Unit Price")
 	report.CellRight(160, y, 20, "Qty")
 	report.CellRight(190, y, 20, "Amount")
+	report.LineType("straight", 1)
+	report.LineH(15, 28, 220)
+	report.Image("apple.jpg",220,10,240,30)
 }
 
 type M1G1Summary struct {
@@ -140,6 +149,11 @@ func (h M1G1Summary) Execute(report gr.GoReport) {
 		report.Cell(150, 2, "Order Total")
 		report.CellRight(180, 2, 30, strconv.FormatFloat(
 			report.SumWork["g1cum"], 'f', 2, 64))
+		report.LineType("straight", 1)
+		report.LineH(15, 7, 220)
+	} else {
+		report.LineType("straight", 1)
+		report.LineH(15, -3, 220)
 	}
 	report.SumWork["g1item"] = 0.0
 	report.SumWork["g1cum"] = 0.0
@@ -171,4 +185,14 @@ func (h M1Summary) Execute(report gr.GoReport) {
 	report.Cell(160, 2, "Total")
 	report.CellRight(180, 2, 30, strconv.FormatFloat(
 		report.SumWork["amountcum"], 'f', 2, 64))
+}
+
+type M1Footer struct {
+}
+
+func (h M1Footer) GetHeight(report gr.GoReport) float64 {
+	return 10
+}
+func (h M1Footer) Execute(report gr.GoReport) {
+	report.Cell(160, 2, "Footer Sample")
 }
