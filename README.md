@@ -55,7 +55,7 @@ Execute(report GoReport)
 
 - Two step executiion.  
 First step: Generate Text data.  
-Second ster: Generate Pdf from Text data.
+Second step: Generate Pdf from Text data.
 
 - Above two step execution enable very flexible usability.  
 You may generate Text data by program, then any kind of pdf can be generated.
@@ -121,8 +121,14 @@ Font(fontName string, size int, style string)
 
 goreport is released under the MIT License. It is copyrighted by Masanobu Shimura. (Gmail mikeshimura)
 
+##Limitation  
+
+- Font style not allow B(bold) and I(italic).
+- Line, Rect and Oval are Black and Gray only.
+
 ##Sample program
 
+[sample source](https://github.com/mikeshimura/goreport/tree/master/example)
 ```go
 package example
 
