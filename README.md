@@ -6,21 +6,25 @@ This program use github.com/signintech/gopdf for pdf generation.
 
 Simple report sample
 ![Simple1](https://bytebucket.org/mikeshimura/goreport/wiki/image/simple1.jpg "Simple1")  
+
 [pdf](https://bytebucket.org/mikeshimura/goreport/wiki/pdf/simple1.pdf)  
 
 
 Medium report sample
 ![Medium1](https://bytebucket.org/mikeshimura/goreport/wiki/image/medium1.jpg "Medium1")
+
 [pdf](https://bytebucket.org/mikeshimura/goreport/wiki/pdf/medium1.pdf)  
 
 
 
 Complex report sample
 ![Complex1](https://bytebucket.org/mikeshimura/goreport/wiki/image/complex1.jpg "Complex1")
+
 [pdf](https://bytebucket.org/mikeshimura/goreport/wiki/pdf/complex1.pdf)  
 
 
 ![Complex2](https://bytebucket.org/mikeshimura/goreport/wiki/image/complex2.jpg "Complex2")
+
 [pdf](https://bytebucket.org/mikeshimura/goreport/wiki/pdf/complex2.pdf)  
 
 
