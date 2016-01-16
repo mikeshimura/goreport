@@ -12,7 +12,7 @@ func Simple1Report() {
 	r := gr.CreateGoReport()
 	r.SumWork["amountcum="]=0.0
 	font1 := gr.FontMap{
-		FontName: "IPAexゴシック",
+		FontName: "IPAexG",
 		FileName: "ttf//ipaexg.ttf",
 	}
 	fonts := []*gr.FontMap{&font1}
@@ -39,7 +39,7 @@ func (h S1Detail) GetHeight(report gr.GoReport) float64 {
 }
 func (h S1Detail) Execute(report gr.GoReport) {
 	cols := report.Records[report.DataPos].([]string)
-	report.Font("IPAexゴシック", 12, "")
+	report.Font("IPAexG", 12, "")
 	y:=2.0
 	report.Cell(15, y, cols[0])
 	report.Cell(30, y, cols[1])
@@ -63,9 +63,9 @@ func (h S1Header) GetHeight(report gr.GoReport) float64 {
 	return 30
 }
 func (h S1Header) Execute(report gr.GoReport) {
-	report.Font("IPAexゴシック", 14, "")
+	report.Font("IPAexG", 14, "")
 	report.Cell(50, 15, "Sales Report")
-	report.Font("IPAexゴシック", 12, "")
+	report.Font("IPAexG", 12, "")
 	report.Cell(240, 20, "page")
 	report.Cell(260, 20, strconv.Itoa(report.Page))
 	y:=23.0

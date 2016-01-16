@@ -18,7 +18,7 @@ func Complex1Report() {
 	r.SumWork["g2hrcum"] = 0.0
 	r.SumWork["g2item"] = 0.0
 	font1 := gr.FontMap{
-		FontName: "IPAexゴシック",
+		FontName: "IPAexG",
 		FileName: "ttf//ipaexg.ttf",
 	}
 	fonts := []*gr.FontMap{&font1}
@@ -52,7 +52,7 @@ func (h C1Detail) GetHeight(report gr.GoReport) float64 {
 func (h C1Detail) Execute(report gr.GoReport) {
 	cols := report.Records[report.DataPos].([]string)
 	y := 2.0
-	report.Font("IPAexゴシック", 9, "")
+	report.Font("IPAexG", 9, "")
 	report.Cell(14, y, cols[5])
 	report.Cell(40, y, cols[6])
 	hr := gr.ParseFloatPanic(cols[7])
@@ -106,7 +106,7 @@ func (h C1Header) Execute(report gr.GoReport) {
 	y := 32.0
 	if report.SumWork["g2item"] == 0.0 {
 		report.Image("apple.jpg", 20, 35, 35, 50)
-		report.Font("IPAexゴシック", 18, "")
+		report.Font("IPAexG", 18, "")
 		report.LineType("straight", 1)
 		report.GrayStroke(0.9)
 		report.LineV(49, 72, 90)
@@ -116,7 +116,7 @@ func (h C1Header) Execute(report gr.GoReport) {
 		//	report.LineType("straight", 0.5)
 		//	report.Rect(48, 13, 81, 21)
 		report.Cell(145, 33, "TAX INVOICE")
-		report.Font("IPAexゴシック", 9, "")
+		report.Font("IPAexG", 9, "")
 		report.Cell(139, 45, "From")
 		x := 153.0
 		report.Cell(x, 45, "Test Consulting Corp.")
@@ -166,7 +166,7 @@ func (h C1G1Summary) Execute(report gr.GoReport) {
 	report.GrayStroke(0.9)
 	report.LineH(11, 0, 199)
 	report.GrayStroke(0)
-	report.Font("IPAexゴシック", 9, "")
+	report.Font("IPAexG", 9, "")
 	report.CellRight(150, y, 20, gr.AddComma(strconv.FormatFloat(
 		report.SumWork["g1hrcum"], 'f', 1, 64))+" Hrs")
 	report.CellRight(170, y, 26, gr.AddComma(strconv.FormatFloat(
@@ -182,7 +182,7 @@ func (h C1G2Summary) GetHeight(report gr.GoReport) float64 {
 	return 50
 }
 func (h C1G2Summary) Execute(report gr.GoReport) {
-	report.Font("IPAexゴシック", 9, "")
+	report.Font("IPAexG", 9, "")
 	y := 15.0
 	report.CellRight(123, y, 20, "Total:")
 	report.CellRight(150, y, 20, gr.AddComma(strconv.FormatFloat(
@@ -198,7 +198,7 @@ func (h C1G2Summary) Execute(report gr.GoReport) {
 	report.LineType("straight", 0.3)
 	report.LineH(170, 33, 199)
 	y = 39.0
-	report.Font("IPAexゴシック", 11, "")
+	report.Font("IPAexG", 11, "")
 	report.CellRight(123, y, 20, "AMOUT DUE:")
 	report.CellRight(170, y, 26, gr.AddComma(strconv.FormatFloat(
 		report.SumWork["g2amtcum"]+tax, 'f', 2, 64))+" USD")
@@ -217,7 +217,7 @@ func (h C1G1Header) GetHeight(report gr.GoReport) float64 {
 func (h C1G1Header) Execute(report gr.GoReport) {
 	cols := report.Records[report.DataPos].([]string)
 	y := 2.0
-	report.Font("IPAexゴシック", 9, "")
+	report.Font("IPAexG", 9, "")
 	report.Cell(14, y, "SUB-TASK")
 	report.Cell(40, y, cols[4])
 	report.LineType("straight", 1)

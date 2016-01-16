@@ -17,7 +17,7 @@ func Medium1Report() {
 	r.SumWork["g1cum"] = 0.0
 	r.SumWork["g2cum"] = 0.0
 	font1 := gr.FontMap{
-		FontName: "IPAexゴシック",
+		FontName: "IPAexG",
 		FileName: "ttf//ipaexg.ttf",
 	}
 	fonts := []*gr.FontMap{&font1}
@@ -50,7 +50,7 @@ func (h M1Detail) GetHeight(report gr.GoReport) float64 {
 }
 func (h M1Detail) Execute(report gr.GoReport) {
 	cols := report.Records[report.DataPos].([]string)
-	report.Font("IPAexゴシック", 12, "")
+	report.Font("IPAexG", 12, "")
 	y := 2.0
 	report.Cell(15, y, cols[0])
 	report.Cell(30, y, cols[1])
@@ -101,7 +101,7 @@ func (h M1Header) GetHeight(report gr.GoReport) float64 {
 	return 30
 }
 func (h M1Header) Execute(report gr.GoReport) {
-	report.Font("IPAexゴシック", 14, "")
+	report.Font("IPAexG", 14, "")
 	report.LineType("straight", 8)
 	report.GrayStroke(0.9)
 	report.LineH(48, 13, 81)
@@ -109,7 +109,7 @@ func (h M1Header) Execute(report gr.GoReport) {
 	report.LineType("straight", 0.5)
 	report.Rect(48, 13, 81, 21)
 	report.Cell(50, 15, "Sales Report")
-	report.Font("IPAexゴシック", 12, "")
+	report.Font("IPAexG", 12, "")
 	report.Cell(245, 20, "page")
 	report.CellRight(253, 20, 10, strconv.Itoa(report.Page))
 	report.Cell(264, 20, "of")
