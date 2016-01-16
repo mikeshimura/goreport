@@ -1,0 +1,19 @@
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	LOGIN screen	2015/12/01	HTML Programming	1.5	75	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	LOGIN screen	2015/12/01	Login Action Programming	3	150	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	LOGIN screen	2015/12/01	Logout Action Programming	1.5	75	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	LOGIN screen	2015/12/02	Password Check Logic	6	300	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	LOGIN screen	2015/12/02	Database Update Programming	1.5	75	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	LOGIN unit test	2015/12/04	Login Unit test	1	50	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	LOGIN unit test	2015/12/04	Logout Unit test	1.5	75	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	LOGIN unit test	2015/12/05	Session Timeout Test	2	100	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	LOGIN unit test	2015/12/05	Database Error Unit Test	3	150	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	Server session management	2015/12/06	Session Management Programming	1.5	75	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	Server session management	2015/12/07	Session Database Daily Maintenanace	3	150	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	Server session management	2015/12/08	Session Unit Test	1.5	75	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	ORDER ENTRY screen	2015/12/08	HTML Programming	6	300	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	ORDER ENTRY screen	2015/12/08	Stock Update Programming	1.5	75	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	ORDER ENTRY screen	2015/12/08	Customer Order History Programming	1	50	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	ORDER ENTRY screen	2015/12/08	Auto Reorder Programming	1.5	75	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	ORDER ENTRY unit test	2015/12/08	Stock Update Test	2	100	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	ORDER ENTRY unit test	2015/12/08	Customer Order Test	3	150	TEST-INV-2015001	2015/12/18	2016/01/17
+MS Softech Corp.	3019 Oakwood Lane	Torrance, California	USA	ORDER ENTRY unit test	2015/12/08	Auto Reorder Test	2	100	TEST-INV-2015001	2015/12/18	2016/01/17

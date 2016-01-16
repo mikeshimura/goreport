@@ -1,11 +1,11 @@
 package example
 
 import (
-	"fmt"
+	//"fmt"
 	gr "github.com/mikeshimura/goreport"
-	"io/ioutil"
+	//"io/ioutil"
 	"strconv"
-	"strings"
+	//"strings"
 )
 
 func Simple1Report() {
@@ -23,8 +23,8 @@ func Simple1Report() {
 	r.RegisterBand(gr.Band(*h), gr.PageHeader)
 	s := new(S1Summary)
 	r.RegisterBand(gr.Band(*s), gr.Summary)
-	r.Records = ReadText()
-	fmt.Printf("Records %v \n", r.Records)
+	r.Records = gr.ReadTextFile("sales1.txt",7)
+	//fmt.Printf("Records %v \n", r.Records)
 	r.SetPage("A4", "mm","L")
 	r.SetFooterY(190)
 	r.Execute("simple1.pdf")
@@ -90,16 +90,4 @@ func (h S1Summary) Execute(report gr.GoReport) {
 	report.CellRight(180, 2,30, strconv.FormatFloat(
 			report.SumWork["amountcum="],'f',2,64))
 }
-func ReadText() []interface{} {
-	res, _ := ioutil.ReadFile("sales1.txt")
-	lines := strings.Split(string(res), "\r\n")
-	list := make([]interface{}, 0, 100)
-	for _, line := range lines {
-		cols := strings.Split(line, "\t")
-		if len(cols) < 7 {
-			continue
-		}
-		list = append(list, cols)
-	}
-	return list
-}
+

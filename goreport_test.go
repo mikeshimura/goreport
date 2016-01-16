@@ -5,10 +5,7 @@ import(
 )
 
 func TestReport(t *testing.T) {
-	rep:=CreateGoReport()
-	d := new(TestDetail)
-	var det Band = d
-	rep.RegisterBand(&det, Detail)
+
 	
 }
 

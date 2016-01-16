@@ -2,7 +2,7 @@ package goreport
 
 import (
 	"bytes"
-	"fmt"
+	//"fmt"
 	"github.com/mikeshimura/dbflute/df"
 	"io/ioutil"
 	"os"
@@ -50,25 +50,30 @@ func (r *GoReport) SetFonts(fmap []*FontMap) {
 }
 
 func (r *GoReport) NewPage(resetPageNo bool) {
-	fmt.Println("report.NewPage goRep")
+	//fmt.Println("report.NewPage goRep")
 	r.Flags["NewPageForce"] = true
 	r.Flags["ResetPageNo"] = resetPageNo
 }
-func (r *GoReport) Execute(filename string) {
-	if r.SumWork["__ft__"] == 0 {
-		panic("footerY not set yet.")
+func (r *GoReport) Convert(exec bool) {
+	if exec {
+		if r.SumWork["__ft__"] == 0 {
+			panic("footerY not set yet.")
+		}
+		r.Page = 1
+		r.CurrY = 0
+		r.ExecutePageHeader()
+		r.AddLine("v\tPAGE\t" + strconv.Itoa(r.Page))
+		for r.DataPos = 0; r.DataPos < len(r.Records); r.DataPos++ {
+			r.ExecuteDetail()
+		}
+		r.ExecuteSummary()
+		r.ExecutePageFooter()
+		r.ReplacePageTotal()
 	}
-	r.Page = 1
-	r.CurrY = 0
-	r.ExecutePageHeader()
-	r.AddLine("v\tPAGE\t" + strconv.Itoa(r.Page))
-	for r.DataPos = 0; r.DataPos < len(r.Records); r.DataPos++ {
-		r.ExecuteDetail()
-	}
-	r.ExecuteSummary()
-	r.ExecutePageFooter()
-	r.ReplacePageTotal()
 	r.Converter.Execute()
+}
+func (r *GoReport) Execute(filename string) {
+	r.Convert(true)
 	r.Converter.Pdf.WritePdf(filename)
 }
 func (r *GoReport) ReplacePageTotal() {
@@ -148,23 +153,26 @@ func (r *GoReport) ExecutePageFooter() {
 	r.CurrY = r.SumWork["__ft__"]
 	h := r.Bands[PageFooter]
 	if h != nil {
+		height := (*h).GetHeight(*r)
 		(*h).Execute(*r)
-		r.CurrY += (*h).GetHeight(*r)
+		r.CurrY += height
 	}
 }
 func (r *GoReport) ExecuteSummary() {
 	h := r.Bands[Summary]
 	if h != nil {
-		r.PageBreakCheck((*h).GetHeight(*r))
+		height := (*h).GetHeight(*r)
+		r.PageBreakCheck(height)
 		(*h).Execute(*r)
-		r.CurrY += (*h).GetHeight(*r)
+		r.CurrY += height
 	}
 }
 func (r *GoReport) ExecutePageHeader() {
 	h := r.Bands[PageHeader]
 	if h != nil {
+		height := (*h).GetHeight(*r)
 		(*h).Execute(*r)
-		r.CurrY += (*h).GetHeight(*r)
+		r.CurrY += height
 	}
 }
 func (r *GoReport) ExecuteGroupHeader(level int) {
@@ -192,9 +200,9 @@ func (r *GoReport) ExecuteGroupSummary(level int) {
 func (r *GoReport) ExecuteDetail() {
 	h := r.Bands[Detail]
 	if h != nil {
-		fmt.Printf("report.NewPage flag %v\n", r.Flags["NewPageForce"])
+		//fmt.Printf("report.NewPage flag %v\n", r.Flags["NewPageForce"])
 		if r.Flags["NewPageForce"] {
-			fmt.Println("NewPageForce")
+			//fmt.Println("NewPageForce")
 			r.PageBreak(r.Flags["ResetPageNo"])
 			r.Flags["NewPageForce"] = false
 			r.Flags["ResetPageNo"] = false
@@ -211,9 +219,10 @@ func (r *GoReport) ExecuteDetail() {
 				r.ExecuteGroupHeader(int(level))
 			}
 		}
-		r.PageBreakCheck((*h).GetHeight(*r))
+		height := (*h).GetHeight(*r)
+		r.PageBreakCheck(height)
 		(*h).Execute(*r)
-		r.CurrY += (*h).GetHeight(*r)
+		r.CurrY += height
 		if r.MaxGroup > 0 {
 			aft := reflect.ValueOf(deti).MethodByName("BreakCheckAfter")
 			if aft.IsValid() == false {
@@ -255,6 +264,7 @@ func (r *GoReport) CellRight(x float64, y float64, w float64, content string) {
 }
 
 func (r *GoReport) LineType(ltype string, width float64) {
+	r.SumWork["__lw__"] = width
 	r.AddLine("LT\t" + ltype + "\t" + Ftoa(width))
 }
 func (r *GoReport) Line(x1 float64, y1 float64, x2 float64, y2 float64) {
@@ -262,14 +272,32 @@ func (r *GoReport) Line(x1 float64, y1 float64, x2 float64, y2 float64) {
 		"\t" + Ftoa(r.CurrY+y2))
 }
 func (r *GoReport) LineH(x1 float64, y float64, x2 float64) {
-	r.AddLine("LH\t" + Ftoa(x1) + "\t" + Ftoa(r.CurrY+y) + "\t" + Ftoa(x2))
+	adj := r.SumWork["__lw__"] * 0.5
+	r.AddLine("LH\t" + Ftoa(x1) + "\t" + Ftoa(r.CurrY+y+adj) + "\t" + Ftoa(x2))
 }
 func (r *GoReport) LineV(x float64, y1 float64, y2 float64) {
-	r.AddLine("LV\t" + Ftoa(x) + "\t" + Ftoa(r.CurrY+y1) + "\t" + Ftoa(r.CurrY+y2))
+	adj := r.SumWork["__lw__"] * 0.5
+	r.AddLine("LV\t" + Ftoa(x+adj) + "\t" + Ftoa(r.CurrY+y1) + "\t" + Ftoa(r.CurrY+y2))
 }
+
+//SumWork["__lw__"] width adjust
 func (r *GoReport) Rect(x1 float64, y1 float64, x2 float64, y2 float64) {
 	r.AddLine("R\t" + Ftoa(x1) + "\t" + Ftoa(r.CurrY+y1) + "\t" + Ftoa(x2) +
+		"\t" + Ftoa(r.CurrY+y2) + "\t" + Ftoa(r.SumWork["__lw__"]))
+}
+func (r *GoReport) Oval(x1 float64, y1 float64, x2 float64, y2 float64) {
+	r.AddLine("O\t" + Ftoa(x1) + "\t" + Ftoa(r.CurrY+y1) + "\t" + Ftoa(x2) +
 		"\t" + Ftoa(r.CurrY+y2))
+}
+func (r *GoReport) TextColor(red int, green int, blue int) {
+	r.AddLine("TC\t" + strconv.Itoa(red) + "\t" + strconv.Itoa(green) +
+		"\t" + strconv.Itoa(blue))
+}
+func (r *GoReport) GrayFill(grayScale float64) {
+	r.AddLine("GF\t" + Ftoa(grayScale))
+}
+func (r *GoReport) GrayStroke(grayScale float64) {
+	r.AddLine("GS\t" + Ftoa(grayScale))
 }
 func (r *GoReport) Image(path string, x1 float64, y1 float64, x2 float64, y2 float64) {
 	r.AddLine("I\t" + path + "\t" + Ftoa(x1) + "\t" + Ftoa(r.CurrY+y1) + "\t" +
@@ -311,6 +339,7 @@ func (r *GoReport) SetPage(size string, unit string, orientation string) {
 				"\t" + strconv.FormatFloat(r.PageY, 'f', 4, 64))
 		}
 	}
+	r.Convert(false)
 }
 
 //unit mm pt in
@@ -334,6 +363,7 @@ func (r *GoReport) SetPageByDimension(unit string, width float64, height float64
 	r.PageY = height
 	r.AddLine("P1\t" + unit + "\t" + strconv.FormatFloat(width, 'f', 4, 64) +
 		"\t" + strconv.FormatFloat(height, 'f', 4, 64))
+	r.Convert(false)
 }
 
 func (r *GoReport) SaveText(fileName string) {

@@ -4,6 +4,6 @@ import (
 "testing"
 )
 
-func TestSimple1(t *testing.T) {
-	Medium1Report()
+func TestReport(t *testing.T) {
+	Complex2Report()
 }
