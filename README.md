@@ -116,12 +116,13 @@ Font(fontName string, size int, style string)
 
 - Image  Draw  
   Image(path string, x1 float64, y1 float64, x2 float64, y2 float64)  
+	
 ##Genarate Commands
 -  Execute(filename string)  
- Genarate PDF File.
+Genarate PDF File.
 
 - GetBytesPdf() (ret []byte)  
- Create byte stream
+Create byte stream
 
 ##License  
 
