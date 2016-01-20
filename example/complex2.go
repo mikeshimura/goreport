@@ -27,7 +27,11 @@ func Complex2Report() {
 		FontName: "IPAexゴシック",
 		FileName: "ttf//ipaexg.ttf",
 	}
-	fonts := []*gr.FontMap{&font1}
+	font2 := gr.FontMap{
+		FontName: "MPBOLD",
+		FileName: "ttf//mplus-1p-bold.ttf",
+	}
+	fonts := []*gr.FontMap{&font1,&font2}
 	r.SetFonts(fonts)
 	d := new(C2Detail)
 	r.RegisterBand(gr.Band(*d), gr.Detail)
@@ -156,9 +160,9 @@ func (h C2Header) Execute(report gr.GoReport) {
 			numConv, time.Now().Format(C2DateFormat))
 		report.CellRight(182, 12, 0, now)
 		report.CellRight(182, 19, 0, "請求書番号:"+cols[2])
-		report.Font("IPAexゴシック", 16, "")
+		report.Font("MPBOLD", 16, "")
 		report.Cell(92, 30, "請求書")
-		report.Font("IPAexゴシック", 11, "")
+		report.Font("MPBOLD", 11, "")
 		x = 118.0
 		report.Cell(x, 46, "サンプル商事株式会社")
 		report.Cell(x, 51, "山田太郎")
@@ -170,7 +174,7 @@ func (h C2Header) Execute(report gr.GoReport) {
 		report.Cell(x, 80, "info@mitakashoji.jp")
 		cols = cols
 		x = 25
-		report.Font("IPAexゴシック", 12, "")
+		report.Font("MPBOLD", 12, "")
 		company := cols[1] + " 御中"
 		// 注意 Pdf.SetFontは呼び出し順が違う
 		report.Converter.Pdf.SetFont("IPAexゴシック", "", 12)
@@ -181,7 +185,7 @@ func (h C2Header) Execute(report gr.GoReport) {
 		report.LineH(x, 50, x+w/report.ConvPt)
 		report.Font("IPAexゴシック", 9, "")
 		report.Cell(x, 58, "下記のとおりご請求申し上げます。")
-		report.Font("IPAexゴシック", 12, "")
+		report.Font("MPBOLD", 12, "")
 		report.Cell(x, 70, "ご請求金額")
 		report.CellRight(x+72, 70, 0, "￥"+gr.AddComma(cols[10])+"-")
 		report.LineH(x, 74, x+72)
