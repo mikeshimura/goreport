@@ -120,7 +120,7 @@ Font(fontName string, size int, style string)
 -  Execute(filename string)  
  Genarate PDF File.
 
-- GetBytesPdf() (ret []byte)
+- GetBytesPdf() (ret []byte)  
  Create byte stream
 
 ##License  
