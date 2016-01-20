@@ -34,6 +34,7 @@ type GoReport struct {
 	PageTotal bool
 	Flags     map[string]bool
 	SumWork   map[string]float64
+	Vars      map[string]string
 }
 
 func (r *GoReport) SetFooterYbyFooterHeight(footerHeight float64) {
@@ -76,6 +77,13 @@ func (r *GoReport) Execute(filename string) {
 	r.Convert(true)
 	r.Converter.Pdf.WritePdf(filename)
 }
+
+func (r *GoReport) GetBytesPdf() (ret []byte) {
+	r.Convert(true)
+	ret = r.Converter.Pdf.GetBytesPdf()
+	return
+}
+
 func (r *GoReport) ReplacePageTotal() {
 	if r.PageTotal == false {
 		return
@@ -380,6 +388,7 @@ func CreateGoReport() *GoReport {
 	GoReport.Bands = make(map[string]*Band)
 	GoReport.Converter = new(Converter)
 	GoReport.SumWork = make(map[string]float64)
+	GoReport.Vars = make(map[string]string)
 	GoReport.SumWork["__ft__"] = 0.0 //FooterY
 	GoReport.Flags = make(map[string]bool)
 	GoReport.Flags["NewPageForce"] = false
