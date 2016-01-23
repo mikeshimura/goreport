@@ -25,7 +25,7 @@ func Complex1Report() {
 		FontName: "MPBOLD",
 		FileName: "ttf//mplus-1p-bold.ttf",
 	}
-	fonts := []*gr.FontMap{&font1,&font2}
+	fonts := []*gr.FontMap{&font1, &font2}
 	r.SetFonts(fonts)
 	d := new(C1Detail)
 	r.RegisterBand(gr.Band(*d), gr.Detail)
@@ -39,7 +39,7 @@ func Complex1Report() {
 	r.RegisterGroupBand(gr.Band(*s1), gr.GroupSummary, 1)
 	s2 := new(C1G2Summary)
 	r.RegisterGroupBand(gr.Band(*s2), gr.GroupSummary, 2)
-	r.Records = gr.ReadTextFile("invoice.txt",12)
+	r.Records = gr.ReadTextFile("invoice.txt", 12)
 	//fmt.Printf("Records %v \n", r.Records)
 	r.SetPage("A4", "mm", "P")
 	r.SetFooterY(265)
@@ -59,9 +59,9 @@ func (h C1Detail) Execute(report gr.GoReport) {
 	report.Font("IPAexG", 9, "")
 	report.Cell(14, y, cols[5])
 	report.Cell(40, y, cols[6])
-	hr := gr.ParseFloatPanic(cols[7])
+	hr := gr.ParseFloatPanic(cols[7], "")
 	report.CellRight(150, y, 20, gr.AddComma(strconv.FormatFloat(hr, 'f', 1, 64))+" Hrs")
-	amt := gr.ParseFloatPanic(cols[8])
+	amt := gr.ParseFloatPanic(cols[8], "")
 	report.CellRight(170, y, 26, gr.AddComma(strconv.FormatFloat(amt, 'f', 2, 64))+" USD")
 	report.SumWork["g1amtcum"] += amt
 	report.SumWork["g2amtcum"] += amt
@@ -208,8 +208,8 @@ func (h C1G2Summary) Execute(report gr.GoReport) {
 		report.SumWork["g2amtcum"]+tax, 'f', 2, 64))+" USD")
 	report.NewPage(true)
 	report.SumWork["g2item"] = 0.0
-	report.SumWork["g2hrcum"]=0.0
-	report.SumWork["g2amtcum"]=0.0
+	report.SumWork["g2hrcum"] = 0.0
+	report.SumWork["g2amtcum"] = 0.0
 }
 
 type C1G1Header struct {
@@ -240,4 +240,3 @@ func (h C1Footer) Execute(report gr.GoReport) {
 	report.Cell(100, 12, "Page")
 	report.Cell(112, 12, strconv.Itoa(report.Page))
 }
-

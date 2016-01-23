@@ -99,8 +99,8 @@ func (p *Converter) Page(line string, eles []string) {
 	case "P1":
 		CheckLength(line, eles, 4)
 		p.SetConv(eles[1])
-		p.Start(ParseFloatPanic(eles[2])*p.ConvPt,
-			ParseFloatPanic(eles[3])*p.ConvPt)
+		p.Start(ParseFloatPanic(eles[2],line)*p.ConvPt,
+			ParseFloatPanic(eles[3],line)*p.ConvPt)
 	}
 	p.AddFont()
 	p.Pdf.AddPage()
@@ -127,7 +127,7 @@ func (p *Converter) Start(w float64, h float64) {
 }
 func (p *Converter) Font(line string, eles []string) {
 	CheckLength(line, eles, 4)
-	err := p.Pdf.SetFont(eles[1], eles[2], AtoiPanic(eles[3]))
+	err := p.Pdf.SetFont(eles[1], eles[2], AtoiPanic(eles[3],line))
 	if err != nil {
 		panic(err.Error()+" line;"+line)
 	}
@@ -135,74 +135,74 @@ func (p *Converter) Font(line string, eles []string) {
 func (p *Converter) Grey(line string, eles []string) {
 	CheckLength(line, eles, 2)
 	if eles[0] == "GF" {
-		p.Pdf.SetGrayFill(ParseFloatPanic(eles[1]))
+		p.Pdf.SetGrayFill(ParseFloatPanic(eles[1],line))
 	}
 	if eles[0] == "GS" {
-		p.Pdf.SetGrayStroke(ParseFloatPanic(eles[1]))
+		p.Pdf.SetGrayStroke(ParseFloatPanic(eles[1],line))
 	}
 }
 func (p *Converter) TextColor(line string, eles []string) {
 	CheckLength(line, eles, 4)
-	p.Pdf.SetTextColor(uint8(AtoiPanic(eles[1])),
-		uint8(AtoiPanic(eles[2])), uint8(AtoiPanic(eles[3])))
+	p.Pdf.SetTextColor(uint8(AtoiPanic(eles[1],line)),
+		uint8(AtoiPanic(eles[2],line)), uint8(AtoiPanic(eles[3],line)))
 }
 func (p *Converter) Oval(line string, eles []string) {
 	CheckLength(line, eles, 5)
-	p.Pdf.Oval(ParseFloatPanic(eles[1])*p.ConvPt,
-		ParseFloatPanic(eles[2])*p.ConvPt,
-		ParseFloatPanic(eles[3])*p.ConvPt,
-		ParseFloatPanic(eles[4])*p.ConvPt)
+	p.Pdf.Oval(ParseFloatPanic(eles[1],line)*p.ConvPt,
+		ParseFloatPanic(eles[2],line)*p.ConvPt,
+		ParseFloatPanic(eles[3],line)*p.ConvPt,
+		ParseFloatPanic(eles[4],line)*p.ConvPt)
 }
 func (p *Converter) Rect(line string, eles []string) {
 	CheckLength(line, eles, 5)
 	adj := p.LineW* p.ConvPt * 0.5
-	p.Pdf.Line(ParseFloatPanic(eles[1])*p.ConvPt,
-		ParseFloatPanic(eles[2])*p.ConvPt+adj,
-		ParseFloatPanic(eles[3])*p.ConvPt+adj*2,
-		ParseFloatPanic(eles[2])*p.ConvPt+adj)
-	p.Pdf.Line(ParseFloatPanic(eles[1])*p.ConvPt+adj,
-		ParseFloatPanic(eles[2])*p.ConvPt,
-		ParseFloatPanic(eles[1])*p.ConvPt+adj,
-		ParseFloatPanic(eles[4])*p.ConvPt+adj*2)
-	p.Pdf.Line(ParseFloatPanic(eles[1])*p.ConvPt,
-		ParseFloatPanic(eles[4])*p.ConvPt+adj,
-		ParseFloatPanic(eles[3])*p.ConvPt+adj*2,
-		ParseFloatPanic(eles[4])*p.ConvPt+adj)
-	p.Pdf.Line(ParseFloatPanic(eles[3])*p.ConvPt+adj,
-		ParseFloatPanic(eles[2])*p.ConvPt,
-		ParseFloatPanic(eles[3])*p.ConvPt+adj,
-		ParseFloatPanic(eles[4])*p.ConvPt+adj*2)
+	p.Pdf.Line(ParseFloatPanic(eles[1],line)*p.ConvPt,
+		ParseFloatPanic(eles[2],line)*p.ConvPt+adj,
+		ParseFloatPanic(eles[3],line)*p.ConvPt+adj*2,
+		ParseFloatPanic(eles[2],line)*p.ConvPt+adj)
+	p.Pdf.Line(ParseFloatPanic(eles[1],line)*p.ConvPt+adj,
+		ParseFloatPanic(eles[2],line)*p.ConvPt,
+		ParseFloatPanic(eles[1],line)*p.ConvPt+adj,
+		ParseFloatPanic(eles[4],line)*p.ConvPt+adj*2)
+	p.Pdf.Line(ParseFloatPanic(eles[1],line)*p.ConvPt,
+		ParseFloatPanic(eles[4],line)*p.ConvPt+adj,
+		ParseFloatPanic(eles[3],line)*p.ConvPt+adj*2,
+		ParseFloatPanic(eles[4],line)*p.ConvPt+adj)
+	p.Pdf.Line(ParseFloatPanic(eles[3],line)*p.ConvPt+adj,
+		ParseFloatPanic(eles[2],line)*p.ConvPt,
+		ParseFloatPanic(eles[3],line)*p.ConvPt+adj,
+		ParseFloatPanic(eles[4],line)*p.ConvPt+adj*2)
 }
 func (p *Converter) Image(line string, eles []string) {
 	CheckLength(line, eles, 6)
 	r := new(gopdf.Rect)
-	r.W = ParseFloatPanic(eles[4])*p.ConvPt -
-		ParseFloatPanic(eles[2])*p.ConvPt
-	r.H = ParseFloatPanic(eles[5])*p.ConvPt -
-		ParseFloatPanic(eles[3])*p.ConvPt
-	p.Pdf.Image(eles[1], ParseFloatPanic(eles[2])*p.ConvPt,
-		ParseFloatPanic(eles[3])*p.ConvPt, r)
+	r.W = ParseFloatPanic(eles[4],line)*p.ConvPt -
+		ParseFloatPanic(eles[2],line)*p.ConvPt
+	r.H = ParseFloatPanic(eles[5],line)*p.ConvPt -
+		ParseFloatPanic(eles[3],line)*p.ConvPt
+	p.Pdf.Image(eles[1], ParseFloatPanic(eles[2],line)*p.ConvPt,
+		ParseFloatPanic(eles[3],line)*p.ConvPt, r)
 }
 func (p *Converter) Line(line string, eles []string) {
 	switch eles[0] {
 	case "L":
 		CheckLength(line, eles, 5)
-		p.Pdf.Line(ParseFloatPanic(eles[1])*p.ConvPt,
-			ParseFloatPanic(eles[2])*p.ConvPt,
-			ParseFloatPanic(eles[3])*p.ConvPt,
-			ParseFloatPanic(eles[4])*p.ConvPt)
+		p.Pdf.Line(ParseFloatPanic(eles[1],line)*p.ConvPt,
+			ParseFloatPanic(eles[2],line)*p.ConvPt,
+			ParseFloatPanic(eles[3],line)*p.ConvPt,
+			ParseFloatPanic(eles[4],line)*p.ConvPt)
 	case "LH":
 		CheckLength(line, eles, 4)
-		p.Pdf.Line(ParseFloatPanic(eles[1])*p.ConvPt,
-			ParseFloatPanic(eles[2])*p.ConvPt,
-			ParseFloatPanic(eles[3])*p.ConvPt,
-			ParseFloatPanic(eles[2])*p.ConvPt)
+		p.Pdf.Line(ParseFloatPanic(eles[1],line)*p.ConvPt,
+			ParseFloatPanic(eles[2],line)*p.ConvPt,
+			ParseFloatPanic(eles[3],line)*p.ConvPt,
+			ParseFloatPanic(eles[2],line)*p.ConvPt)
 	case "LV":
 		CheckLength(line, eles, 4)
-		p.Pdf.Line(ParseFloatPanic(eles[1])*p.ConvPt,
-			ParseFloatPanic(eles[2])*p.ConvPt,
-			ParseFloatPanic(eles[1])*p.ConvPt,
-			ParseFloatPanic(eles[3])*p.ConvPt)
+		p.Pdf.Line(ParseFloatPanic(eles[1],line)*p.ConvPt,
+			ParseFloatPanic(eles[2],line)*p.ConvPt,
+			ParseFloatPanic(eles[1],line)*p.ConvPt,
+			ParseFloatPanic(eles[3],line)*p.ConvPt)
 	case "LT":
 		//lineType "dashed" ,"dotted"
 		CheckLength(line, eles, 3)
@@ -211,7 +211,7 @@ func (p *Converter) Line(line string, eles []string) {
 			lineType = "straight"
 		}
 		p.Pdf.SetLineType(lineType)
-		p.LineW=ParseFloatPanic(eles[2])
+		p.LineW=ParseFloatPanic(eles[2],line)
 		p.Pdf.SetLineWidth(p.LineW * p.ConvPt)
 	}
 
@@ -225,15 +225,15 @@ func (p *Converter) Cell(line string, eles []string) {
 	switch eles[0] {
 	case "C":
 		CheckLength(line, eles, 6)
-		err := p.Pdf.SetFont(eles[1], "", AtoiPanic(eles[2]))
+		err := p.Pdf.SetFont(eles[1], "", AtoiPanic(eles[2],line))
 		if err != nil {
 			panic(err.Error()+" line;"+line)
 		}
-		p.MoveSub(eles[3], eles[4])
+		p.MoveSub(eles[3], eles[4],line)
 		p.Pdf.Cell(nil, eles[5])
 	case "C1":
 		CheckLength(line, eles, 4)
-		p.MoveSub(eles[1], eles[2])
+		p.MoveSub(eles[1], eles[2],line)
 		p.Pdf.Cell(nil, eles[3])
 	case "CR":
 		CheckLength(line, eles, 5)
@@ -241,9 +241,9 @@ func (p *Converter) Cell(line string, eles []string) {
 		if err != nil {
 			panic(err.Error()+" line;"+line)
 		}
-		x := ParseFloatPanic(eles[1]) * p.ConvPt
-		y := ParseFloatPanic(eles[2]) * p.ConvPt
-		w := ParseFloatPanic(eles[3]) * p.ConvPt
+		x := ParseFloatPanic(eles[1],line) * p.ConvPt
+		y := ParseFloatPanic(eles[2],line) * p.ConvPt
+		w := ParseFloatPanic(eles[3],line) * p.ConvPt
 		finalx := x + w - tw
 		p.Pdf.SetX(finalx)
 		p.Pdf.SetY(y)
@@ -252,23 +252,23 @@ func (p *Converter) Cell(line string, eles []string) {
 }
 func (p *Converter) Move(line string, eles []string) {
 	CheckLength(line, eles, 3)
-	p.MoveSub(eles[1], eles[2])
+	p.MoveSub(eles[1], eles[2],line)
 }
-func (p *Converter) MoveSub(sx string, sy string) {
-	p.Pdf.SetX(ParseFloatPanic(sx) * p.ConvPt)
-	p.Pdf.SetY(ParseFloatPanic(sy) * p.ConvPt)
+func (p *Converter) MoveSub(sx string, sy string,line string) {
+	p.Pdf.SetX(ParseFloatPanic(sx,line) * p.ConvPt)
+	p.Pdf.SetY(ParseFloatPanic(sy,line) * p.ConvPt)
 }
-func AtoiPanic(s string) int {
+func AtoiPanic(s string,line string) int {
 	i, err := strconv.Atoi(s)
 	if err != nil {
-		panic(s + " not Integer")
+		panic(s + " not Integer :"+line)
 	}
 	return i
 }
-func ParseFloatPanic(s string) float64 {
+func ParseFloatPanic(s string,line string) float64 {
 	f, err := strconv.ParseFloat(s, 64)
 	if err != nil {
-		panic(s + " not Numeric")
+		panic(s + " not Numeric :"+line)
 	}
 	return f
 }

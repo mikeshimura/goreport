@@ -91,6 +91,10 @@ r.SetFonts(fonts)
 
 ##Draw Commands
 
+- New Page  
+NewPage(resetPageNo bool)
+
+
 - Font setting  
 Font(fontName string, size int, style string)  
 //style "" or "U" (underline)  
