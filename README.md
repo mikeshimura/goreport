@@ -116,7 +116,7 @@ Font(fontName string, size int, style string)
 
 - Image  Draw  
   Image(path string, x1 float64, y1 float64, x2 float64, y2 float64)  
-	
+
 ##Genarate Commands
 -  Execute(filename string)  
 Genarate PDF File.
@@ -132,6 +132,7 @@ goreport is released under the MIT License. It is copyrighted by Masanobu Shimur
 
 - Font style not allow B(bold) and I(italic).
 - Line, Rect and Oval are Black and Gray only.
+- Image file format is jpeg only.
 
 ##Sample program
 

@@ -291,7 +291,7 @@ func (r *GoReport) LineV(x float64, y1 float64, y2 float64) {
 //SumWork["__lw__"] width adjust
 func (r *GoReport) Rect(x1 float64, y1 float64, x2 float64, y2 float64) {
 	r.AddLine("R\t" + Ftoa(x1) + "\t" + Ftoa(r.CurrY+y1) + "\t" + Ftoa(x2) +
-		"\t" + Ftoa(r.CurrY+y2) + "\t" + Ftoa(r.SumWork["__lw__"]))
+		"\t" + Ftoa(r.CurrY+y2))
 }
 func (r *GoReport) Oval(x1 float64, y1 float64, x2 float64, y2 float64) {
 	r.AddLine("O\t" + Ftoa(x1) + "\t" + Ftoa(r.CurrY+y1) + "\t" + Ftoa(x2) +

@@ -13,6 +13,7 @@ type Converter struct {
 	Text   string
 	Fonts  []*FontMap
 	ConvPt float64
+	LineW float64
 }
 
 //var p.ConvPt float64 = 2.834645669
@@ -72,7 +73,7 @@ func (p *Converter) AddFont() {
 	for _, font := range p.Fonts {
 		err := p.Pdf.AddTTFFont(font.FontName, font.FileName)
 		if err != nil {
-			panic(err)
+			panic("font file:"+font.FileName+" not found")
 		}
 	}
 
@@ -128,7 +129,7 @@ func (p *Converter) Font(line string, eles []string) {
 	CheckLength(line, eles, 4)
 	err := p.Pdf.SetFont(eles[1], eles[2], AtoiPanic(eles[3]))
 	if err != nil {
-		panic(err)
+		panic(err.Error()+" line;"+line)
 	}
 }
 func (p *Converter) Grey(line string, eles []string) {
@@ -153,8 +154,8 @@ func (p *Converter) Oval(line string, eles []string) {
 		ParseFloatPanic(eles[4])*p.ConvPt)
 }
 func (p *Converter) Rect(line string, eles []string) {
-	CheckLength(line, eles, 6)
-	adj := ParseFloatPanic(eles[5]) * p.ConvPt * 0.5
+	CheckLength(line, eles, 5)
+	adj := p.LineW* p.ConvPt * 0.5
 	p.Pdf.Line(ParseFloatPanic(eles[1])*p.ConvPt,
 		ParseFloatPanic(eles[2])*p.ConvPt+adj,
 		ParseFloatPanic(eles[3])*p.ConvPt+adj*2,
@@ -210,7 +211,8 @@ func (p *Converter) Line(line string, eles []string) {
 			lineType = "straight"
 		}
 		p.Pdf.SetLineType(lineType)
-		p.Pdf.SetLineWidth(ParseFloatPanic(eles[2]) * p.ConvPt)
+		p.LineW=ParseFloatPanic(eles[2])
+		p.Pdf.SetLineWidth(p.LineW * p.ConvPt)
 	}
 
 }
@@ -225,7 +227,7 @@ func (p *Converter) Cell(line string, eles []string) {
 		CheckLength(line, eles, 6)
 		err := p.Pdf.SetFont(eles[1], "", AtoiPanic(eles[2]))
 		if err != nil {
-			panic(err)
+			panic(err.Error()+" line;"+line)
 		}
 		p.MoveSub(eles[3], eles[4])
 		p.Pdf.Cell(nil, eles[5])
@@ -237,7 +239,7 @@ func (p *Converter) Cell(line string, eles []string) {
 		CheckLength(line, eles, 5)
 		tw, err := p.Pdf.MeasureTextWidth(eles[4])
 		if err != nil {
-			panic(err)
+			panic(err.Error()+" line;"+line)
 		}
 		x := ParseFloatPanic(eles[1]) * p.ConvPt
 		y := ParseFloatPanic(eles[2]) * p.ConvPt

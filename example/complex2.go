@@ -1,7 +1,7 @@
 package example
 
 import (
-	"fmt"
+	//"fmt"
 	gr "github.com/mikeshimura/goreport"
 	"time"
 	"unicode"
@@ -44,7 +44,7 @@ func Complex2Report() {
 	s2 := new(C2G2Summary)
 	r.RegisterGroupBand(gr.Band(*s2), gr.GroupSummary, 2)
 	r.Records = gr.ReadTextFile("invoice2.txt", 11)
-	fmt.Printf("Records %v \n", r.Records)
+	//fmt.Printf("Records %v \n", r.Records)
 	r.SetPage("A4", "mm", "P")
 	r.SetFooterY(265)
 	r.Execute("complex2.pdf")
@@ -80,7 +80,7 @@ func (h C2Detail) Execute(report gr.GoReport) {
 	report.LineV(x+135, 0, 5)
 	fty := report.SumWork["__ft__"]
 	//最下行なら横線を引く
-	fmt.Printf("fty %v CurrY %v\n", fty, report.CurrY)
+	//fmt.Printf("fty %v CurrY %v\n", fty, report.CurrY)
 	if fty-report.CurrY <= 5 {
 		report.LineH(x, 5, x+41)
 	}
