@@ -27,11 +27,11 @@ Complex report sample
 
 [pdf](https://bytebucket.org/mikeshimura/goreport/wiki/pdf/complex2.pdf)  
 
-##Installation
+## Installation
 ```
 go get -u github.com/mikeshimura/goreport
 ```
-##concept
+## concept
 - Following Bands are available.  
 PageHeader  
 GroupHeader2  
@@ -68,7 +68,7 @@ You may generate Text data by program, then any kind of pdf can be generated.
 
 - Any Ttf Font can be used
 
-##Setup Commands
+## Setup Commands
 - Font Setting Sample
 ```
 font1 := gr.FontMap{
@@ -89,7 +89,7 @@ r.SetFonts(fonts)
  SetFooterYbyFooterHeight(footerHeight float64)  
  //Sheet height - footerHeight will be set  
 
-##Draw Commands
+## Draw Commands
 
 - New Page  
 NewPage(resetPageNo bool)
@@ -121,24 +121,24 @@ Font(fontName string, size int, style string)
 - Image  Draw  
   Image(path string, x1 float64, y1 float64, x2 float64, y2 float64)  
 
-##Genarate Commands
+## Genarate Commands
 -  Execute(filename string)  
 Genarate PDF File.
 
 - GetBytesPdf() (ret []byte)  
 Create byte stream
 
-##License  
+## License  
 
 goreport is released under the MIT License. It is copyrighted by Masanobu Shimura. (Gmail mikeshimura)
 
-##Limitation  
+## Limitation  
 
 - Font style not allow B(bold) and I(italic).
 - Line, Rect and Oval are Black and Gray only.
 - Image file format is jpeg only.
 
-##Sample program
+## Sample program
 
 [sample source](https://github.com/mikeshimura/goreport/tree/master/example)
 ```go
