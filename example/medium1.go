@@ -34,7 +34,7 @@ func Medium1Report() {
 	r.RegisterGroupBand(gr.Band(*s1), gr.GroupSummary, 1)
 	s2 := new(M1G2Summary)
 	r.RegisterGroupBand(gr.Band(*s2), gr.GroupSummary, 2)
-	r.Records = gr.ReadTextFile("sales1.txt",7)
+	r.Records = gr.ReadTextFile("sales1.txt", 7)
 	//fmt.Printf("Records %v \n", r.Records)
 	r.SetPage("A4", "mm", "L")
 	r.SetFooterY(190)

@@ -2,8 +2,8 @@ package goreport
 
 import (
 	//"fmt"
-	"strings"
 	"io/ioutil"
+	"strings"
 )
 
 func AddComma(s string) string {
@@ -33,7 +33,7 @@ func addCommaSub(s string) string {
 	}
 	return res
 }
-func ReadTextFile(filename string,colno int)[]interface{}{
+func ReadTextFile(filename string, colno int) []interface{} {
 	res, _ := ioutil.ReadFile(filename)
 	lines := strings.Split(string(res), "\r\n")
 	list := make([]interface{}, 0, 100)

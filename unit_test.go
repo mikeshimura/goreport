@@ -1,8 +1,8 @@
 package goreport
 
 import (
-"testing"
 	"fmt"
+	"testing"
 )
 
 func TestUnit(t *testing.T) {

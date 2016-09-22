@@ -1,7 +1,7 @@
 package main
 
 import (
-"github.com/mikeshimura/goreport/example"
+	"github.com/mikeshimura/goreport/example"
 )
 
 func main() {
