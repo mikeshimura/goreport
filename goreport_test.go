@@ -1,12 +1,11 @@
 package goreport
 
-import(
+import (
 	"testing"
 )
 
 func TestReport(t *testing.T) {
 
-	
 }
 
 type TestDetail struct {

@@ -31,7 +31,7 @@ func Complex2Report() {
 		FontName: "MPBOLD",
 		FileName: "ttf//mplus-1p-bold.ttf",
 	}
-	fonts := []*gr.FontMap{&font1,&font2}
+	fonts := []*gr.FontMap{&font1, &font2}
 	r.SetFonts(fonts)
 	d := new(C2Detail)
 	r.RegisterBand(gr.Band(*d), gr.Detail)
@@ -94,7 +94,7 @@ func (h C2Detail) Execute(report gr.GoReport) {
 	report.CellRight(x+115, y, 0, gr.AddComma(cols[7]))
 	report.CellRight(x+134, y, 0, "\u00A5"+gr.AddComma(cols[8]))
 	report.CellRight(x+159, y, 0, "\u00A5"+gr.AddComma(cols[9]))
-	amt := gr.AtoiPanic(cols[9],"")
+	amt := gr.AtoiPanic(cols[9], "")
 	report.SumWork["g1amtcum"] += float64(amt)
 	report.SumWork["g2amtcum"] += float64(amt)
 	report.SumWork["g1item"]++

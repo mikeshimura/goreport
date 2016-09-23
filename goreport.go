@@ -97,7 +97,7 @@ func (r *GoReport) ReplacePageTotal() {
 		if line[0:7] == "v\tPAGE\t" {
 			h := new(pagehist)
 			h.line = i
-			h.page = AtoiPanic(line[7:],line)
+			h.page = AtoiPanic(line[7:], line)
 			list.Add(h)
 			//fmt.Printf("hist %v \n", h)
 		}
