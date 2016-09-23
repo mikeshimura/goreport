@@ -35,9 +35,10 @@ func addCommaSub(s string) string {
 }
 func ReadTextFile(filename string,colno int)[]interface{}{
 	res, _ := ioutil.ReadFile(filename)
-	lines := strings.Split(string(res), "\r\n")
+	lines := strings.Split(string(res), "\n")
 	list := make([]interface{}, 0, 100)
 	for _, line := range lines {
+		line=strings.Replace(line, "\r", "", -1)
 		cols := strings.Split(line, "\t")
 		if len(cols) < colno {
 			continue
