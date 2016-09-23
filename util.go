@@ -38,7 +38,7 @@ func ReadTextFile(filename string, colno int) []interface{} {
 	lines := strings.Split(string(res), "\n")
 	list := make([]interface{}, 0, 100)
 	for _, line := range lines {
-		line=strings.Replace(line, "\r", "", -1)
+		line = strings.Replace(line, "\r", "", -1)
 		cols := strings.Split(line, "\t")
 		if len(cols) < colno {
 			continue
