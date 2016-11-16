@@ -301,6 +301,10 @@ func (r *GoReport) TextColor(red int, green int, blue int) {
 	r.AddLine("TC\t" + strconv.Itoa(red) + "\t" + strconv.Itoa(green) +
 		"\t" + strconv.Itoa(blue))
 }
+func (r *GoReport) StrokeColor(red int, green int, blue int) {
+    r.AddLine("SC\t" + strconv.Itoa(red) + "\t" + strconv.Itoa(green) +
+        "\t" + strconv.Itoa(blue))
+}
 func (r *GoReport) GrayFill(grayScale float64) {
 	r.AddLine("GF\t" + Ftoa(grayScale))
 }
