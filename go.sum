@@ -1,0 +1,14 @@
+github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575 h1:kHaBemcxl8o/pQ5VM1c8PVE1PubbNx3mjUr09OqWGCs=
+github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575/go.mod h1:9d6lWj8KzO/fd/NrVaLscBKmPigpZpn5YawRPw+e3Yo=
+github.com/lib/pq v1.10.7 h1:p7ZhMD+KsSRozJr34udlUrhboJwWAgCg34+/ZZNvZZw=
+github.com/lib/pq v1.10.7/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
+github.com/mikeshimura/dbflute v0.0.0-20181210061525-0fbcf5595ee8 h1:YRIz5AFHllMu0BqPGs6N+A9NepBq8L9deoGrWd/X8qQ=
+github.com/mikeshimura/dbflute v0.0.0-20181210061525-0fbcf5595ee8/go.mod h1:JNRG7uA40iR1wbee4DGBZf2zq+BTfhQnN9xfIQ6XG4M=
+github.com/phpdave11/gofpdi v1.0.11 h1:wsBNx+3S0wy1dEp6fzv281S74ogZGgIdYWV2PugWgho=
+github.com/phpdave11/gofpdi v1.0.11/go.mod h1:vBmVV0Do6hSBHC8uKUQ71JGW+ZGQq74llk/7bXwjDoI=
+github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
+github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
+github.com/signintech/gopdf v0.15.0 h1:oZ3dJYUjGvZ/nOaXRFRZBbHVLH5IvjAliHFZVMiy7ZM=
+github.com/signintech/gopdf v0.15.0/go.mod h1:a+E8HlIuBwghPyoo7UaoB5UaL7zklDzmYVIAHoW/Rlw=
+github.com/streamrail/concurrent-map v0.0.0-20160823150647-8bf1e9bacbf6 h1:XklXvOrWxWCDX2n4vdEQWkjuIP820XD6C4kF0O0FzH4=
+github.com/streamrail/concurrent-map v0.0.0-20160823150647-8bf1e9bacbf6/go.mod h1:yqDD2twFAqxvvH5gtpwwgLsj5L1kbNwtoPoDOwBzXcs=
