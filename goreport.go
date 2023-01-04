@@ -2,8 +2,6 @@ package goreport
 
 import (
 	"bytes"
-	//"fmt"
-	"io/ioutil"
 	"os"
 	"reflect"
 	"strconv"
@@ -380,7 +378,7 @@ func (r *GoReport) SetPageByDimension(unit string, width float64, height float64
 }
 
 func (r *GoReport) SaveText(fileName string) {
-	ioutil.WriteFile(fileName, []byte(r.Converter.Text), os.ModePerm)
+	os.WriteFile(fileName, []byte(r.Converter.Text), os.ModePerm)
 }
 
 type Band interface {

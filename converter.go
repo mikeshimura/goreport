@@ -2,7 +2,7 @@ package goreport
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
 
@@ -21,7 +21,7 @@ type Converter struct {
 
 // Read UTF-8 encoding file
 func (p *Converter) ReadFile(fileName string) error {
-	buf, err := ioutil.ReadFile(fileName)
+	buf, err := os.ReadFile(fileName)
 	if err != nil {
 		return err
 	}
