@@ -2,9 +2,11 @@ package example
 
 import (
 	//"fmt"
-	gr "github.com/mikeshimura/goreport"
 	"time"
 	"unicode"
+
+	gr "github.com/mikeshimura/goreport"
+
 	//"io/ioutil"
 	"strconv"
 	"strings"
