@@ -1,8 +1,7 @@
 package goreport
 
 import (
-	//"fmt"
-	"io/ioutil"
+	"os"
 	"strings"
 )
 
@@ -34,7 +33,7 @@ func addCommaSub(s string) string {
 	return res
 }
 func ReadTextFile(filename string, colno int) []interface{} {
-	res, _ := ioutil.ReadFile(filename)
+	res, _ := os.ReadFile(filename)
 	return ReadBytes(res, colno)
 }
 

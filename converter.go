@@ -2,10 +2,11 @@ package goreport
 
 import (
 	"fmt"
-	"github.com/signintech/gopdf"
-	"io/ioutil"
+	"os"
 	"strconv"
 	"strings"
+
+	"github.com/signintech/gopdf"
 )
 
 type Converter struct {
@@ -18,9 +19,9 @@ type Converter struct {
 
 //var p.ConvPt float64 = 2.834645669
 
-//Read UTF-8 encoding file
+// Read UTF-8 encoding file
 func (p *Converter) ReadFile(fileName string) error {
-	buf, err := ioutil.ReadFile(fileName)
+	buf, err := os.ReadFile(fileName)
 	if err != nil {
 		return err
 	}
@@ -49,7 +50,7 @@ func (p *Converter) Execute() {
 		case "TC":
 			p.TextColor(line, eles)
 		case "SC":
-            		p.StrokeColor(line, eles)
+			p.StrokeColor(line, eles)
 		case "GF", "GS":
 			p.Grey(line, eles)
 		case "C", "C1", "CR":
@@ -149,9 +150,9 @@ func (p *Converter) TextColor(line string, eles []string) {
 		uint8(AtoiPanic(eles[2], line)), uint8(AtoiPanic(eles[3], line)))
 }
 func (p *Converter) StrokeColor(line string, eles []string) {
-    CheckLength(line, eles, 4)
-    p.Pdf.SetStrokeColor(uint8(AtoiPanic(eles[1], line)),
-        uint8(AtoiPanic(eles[2], line)), uint8(AtoiPanic(eles[3], line)))
+	CheckLength(line, eles, 4)
+	p.Pdf.SetStrokeColor(uint8(AtoiPanic(eles[1], line)),
+		uint8(AtoiPanic(eles[2], line)), uint8(AtoiPanic(eles[3], line)))
 }
 func (p *Converter) Oval(line string, eles []string) {
 	CheckLength(line, eles, 5)
