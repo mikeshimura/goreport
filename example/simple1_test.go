@@ -1,7 +1,7 @@
 package example
 
 import (
-"testing"
+	"testing"
 )
 
 func TestReport(t *testing.T) {
