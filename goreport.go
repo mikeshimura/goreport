@@ -4,7 +4,6 @@ import (
 	"bytes"
 	//"fmt"
 	"github.com/mikeshimura/dbflute/df"
-	"io/ioutil"
 	"os"
 	"reflect"
 	"strconv"
@@ -97,7 +96,7 @@ func (r *GoReport) ReplacePageTotal() {
 		if line[0:7] == "v\tPAGE\t" {
 			h := new(pagehist)
 			h.line = i
-			h.page = AtoiPanic(line[7:],line)
+			h.page = AtoiPanic(line[7:], line)
 			list.Add(h)
 			//fmt.Printf("hist %v \n", h)
 		}
@@ -288,7 +287,7 @@ func (r *GoReport) LineV(x float64, y1 float64, y2 float64) {
 	r.AddLine("LV\t" + Ftoa(x+adj) + "\t" + Ftoa(r.CurrY+y1) + "\t" + Ftoa(r.CurrY+y2))
 }
 
-//SumWork["__lw__"] width adjust
+// SumWork["__lw__"] width adjust
 func (r *GoReport) Rect(x1 float64, y1 float64, x2 float64, y2 float64) {
 	r.AddLine("R\t" + Ftoa(x1) + "\t" + Ftoa(r.CurrY+y1) + "\t" + Ftoa(x2) +
 		"\t" + Ftoa(r.CurrY+y2))
@@ -316,7 +315,7 @@ func (r *GoReport) Var(name string, val string) {
 	r.AddLine("V\t" + name + "\t" + val)
 }
 
-//unit mm pt in  size A4 LTR
+// unit mm pt in  size A4 LTR
 func (r *GoReport) SetPage(size string, unit string, orientation string) {
 	r.SetConv(unit)
 	switch size {
@@ -350,7 +349,7 @@ func (r *GoReport) SetPage(size string, unit string, orientation string) {
 	r.Convert(false)
 }
 
-//unit mm pt in
+// unit mm pt in
 func (r *GoReport) SetConv(ut string) {
 	switch ut {
 	case "mm":
@@ -375,7 +374,7 @@ func (r *GoReport) SetPageByDimension(unit string, width float64, height float64
 }
 
 func (r *GoReport) SaveText(fileName string) {
-	ioutil.WriteFile(fileName, []byte(r.Converter.Text), os.ModePerm)
+	os.WriteFile(fileName, []byte(r.Converter.Text), os.ModePerm)
 }
 
 type Band interface {
