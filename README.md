@@ -5,27 +5,31 @@ Golang Pdf Report Generator
 This program use github.com/signintech/gopdf for pdf generation.
 
 Simple report sample
-![Simple1](https://bytebucket.org/mikeshimura/goreport/wiki/image/simple1.jpg "Simple1")  
+![Simple1](https://github.com/mikeshimura/goreport/wiki/image/simple11.jpg "Simple1")  
+![Simple1](https://github.com/mikeshimura/goreport/wiki/image/simple12.jpg "Simple1")  
 
-[pdf](https://bytebucket.org/mikeshimura/goreport/wiki/pdf/simple1.pdf)  
+[pdf](https://github.com/mikeshimura/goreport/wiki/pdf/simple1.pdf)  
 
 
 Medium report sample
-![Medium1](https://bytebucket.org/mikeshimura/goreport/wiki/image/medium1.jpg "Medium1")
+![Medium1](https://github.com/mikeshimura/goreport/wiki/image/medium11.jpg "Medium1")
+![Medium1](https://github.com/mikeshimura/goreport/wiki/image/medium12.jpg "Medium1")
 
-[pdf](https://bytebucket.org/mikeshimura/goreport/wiki/pdf/medium1.pdf)  
+[pdf](https://github.com/mikeshimura/goreport/wiki/pdf/medium1.pdf)  
 
 
 
 Complex report sample
-![Complex1](https://bytebucket.org/mikeshimura/goreport/wiki/image/complex1.jpg "Complex1")
+![Complex1](https://github.com/mikeshimura/goreport/wiki/image/complex1.jpg "Complex1")
+![Complex1](https://github.com/mikeshimura/goreport/wiki/image/complex12.jpg "Complex1")
 
-[pdf](https://bytebucket.org/mikeshimura/goreport/wiki/pdf/complex1.pdf)  
+[pdf](https://github.com/mikeshimura/goreport/wiki/pdf/complex1.pdf)  
 
 
-![Complex2](https://bytebucket.org/mikeshimura/goreport/wiki/image/complex2.jpg "Complex2")
+![Complex2](https://github.com/mikeshimura/goreport/wiki/image/complex21.jpg "Complex2")
+![Complex2](https://github.com/mikeshimura/goreport/wiki/image/complex22.jpg "Complex2")
 
-[pdf](https://bytebucket.org/mikeshimura/goreport/wiki/pdf/complex2.pdf)  
+[pdf](https://github.com/mikeshimura/goreport/wiki/pdf/complex2.pdf)  
 
 ## Installation
 ```
