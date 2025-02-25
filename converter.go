@@ -3,7 +3,6 @@ package goreport
 import (
 	"fmt"
 	"github.com/signintech/gopdf"
-	"io/ioutil"
 	"os"
 	"strconv"
 	"strings"
@@ -123,7 +122,7 @@ func (p *Converter) NewPage(line string, eles []string) {
 	p.Pdf.AddPage()
 }
 func (p *Converter) Start(w float64, h float64) {
-	p.Pdf.Start(gopdf.Config{Unit: "pt",
+	p.Pdf.Start(gopdf.Config{Unit: 1,
 		PageSize: gopdf.Rect{W: w, H: h}}) //595.28, 841.89 = A4
 }
 func (p *Converter) Font(line string, eles []string) {
